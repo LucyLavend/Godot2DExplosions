@@ -1,0 +1,107 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://CoolExplosion.gd" type="Script" id=1]
+[ext_resource path="res://Audio/CoolExplosion.wav" type="AudioStream" id=2]
+[ext_resource path="res://Dust.png" type="Texture" id=3]
+[ext_resource path="res://Sparks/Sparks3.png" type="Texture" id=4]
+[ext_resource path="res://Sparks/Sparks2.png" type="Texture" id=5]
+[ext_resource path="res://Sparks/Sparks1.png" type="Texture" id=6]
+[ext_resource path="res://Sparks/Sparks4.png" type="Texture" id=7]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.0250391, 0.0688576, 0.190608, 0.254144, 0.757282, 0.970874 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.827282, 0.381596, 1, 1, 0.390747, 0.152344, 1, 0.28, 0.28, 0.28, 1, 0.188477, 0.188477, 0.188477, 1, 0.8, 0.8, 0.8, 0.45098 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.2 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+lifetime_randomness = 0.26
+emission_shape = 1
+emission_sphere_radius = 16.27
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, 12, 0 )
+initial_velocity = 141.33
+initial_velocity_random = 0.6
+angular_velocity_random = 0.9
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 91.94
+damping_random = 0.11
+scale = 4.03
+scale_random = 1.0
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+hue_variation_random = 1.0
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.151934, 0.392265, 0.744186, 0.767442, 0.775194 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188477, 0.188477, 0.188477, 1, 0.67451, 0.67451, 0.67451, 0.423529 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.462338, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.65
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 67.05
+gravity = Vector3( 0, 392, 0 )
+initial_velocity = 267.09
+initial_velocity_random = 0.79
+angular_velocity = 325.16
+angular_velocity_random = 0.74
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 8.6
+damping_random = 0.12
+scale = 6.99
+scale_random = 0.71
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 7 ), null ],
+"loop": false,
+"name": "default",
+"speed": 20.0
+} ]
+
+[node name="CoolExplosion" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Dust" type="Particles2D" parent="."]
+amount = 64
+explosiveness = 1.0
+process_material = SubResource( 5 )
+texture = ExtResource( 3 )
+
+[node name="Debris" type="Particles2D" parent="."]
+amount = 16
+lifetime = 1.75
+explosiveness = 1.0
+process_material = SubResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+modulate = Color( 5.78, 9.3, 5.2, 1 )
+position = Vector2( -0.264866, 0.794594 )
+frames = SubResource( 11 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -9.498
+autoplay = true

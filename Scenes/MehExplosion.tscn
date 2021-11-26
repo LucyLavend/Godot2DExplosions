@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/MehExplosion.gd" type="Script" id=1]
+[ext_resource path="res://Audio/ExplosionSimple.wav" type="AudioStream" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.651163, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 21.84
+flag_disable_z = true
+gravity = Vector3( 0, 5, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 6.03
+scale_random = 0.78
+color_ramp = SubResource( 2 )
+
+[node name="MehExplosion" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 58
+lifetime = 0.55
+explosiveness = 1.0
+process_material = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -10.447
+autoplay = true
